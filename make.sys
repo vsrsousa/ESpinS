@@ -4,13 +4,14 @@
 #=============                                             
 F90 = ifort
 COMMS=mpi
-MPIF90=mpifort
-FCOPTS=-O2 
-LDOPTS=-O2 
+MPIF90=mpiifort
+FCOPTS=-O2 -qopenmp -traceback
+LDOPTS=-O2 -qopenmp -traceback
 #========================================================
 # Intel mkl libraries. Set LIBPATH if not in default path
 #========================================================
 
-LIBDIR = /opt/intel/mkl/lib/intel64
+#LIBDIR = /opt/intel/mkl/lib/intel64
+LIBDIR = /opt/intel/oneapi/mkl/2021.2.0/lib/intel64
 LIBS   =  -L$(LIBDIR) -lmkl_core -lmkl_intel_lp64 -lmkl_sequential -lpthread
 

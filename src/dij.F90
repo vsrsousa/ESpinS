@@ -236,7 +236,7 @@ contains
                     num_second_atom = (num_second_supercell-1)*num_atoms+nnx
                     dij_tot_matrix(:,num_first_atom,num(num_first_atom)) = & 
                          dij_vectors_cart(:,ibors)*dij(ibors) & 
-                          /(abs(mag_moments_matrix(num_first_atom)*mag_moments_matrix(num_second_atom)))
+!                          /(abs(mag_moments_matrix(num_first_atom)*mag_moments_matrix(num_second_atom)))
                     dij_tot_nbors_matrix(num_first_atom,num(num_first_atom)) = num_second_atom 
                     atom_found = .true.
                     exit ok1
