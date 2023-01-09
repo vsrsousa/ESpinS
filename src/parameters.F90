@@ -992,10 +992,13 @@ contains
        if (ierr/=0) call io_error('Error allocating field_atoms_symbol in param_read')
        
        if (found) then
-          call param_get_axes('field_axes_frac',found,num_atoms,&
-                              c_value=field_atoms_symbol,r_value=field_axes_cart,&
-                              param_value=field_parameters,lsort=.true.,lnorm=.true.)
-!! //  Removing dependence of magnetic field with cartesian axis
+!          call param_get_axes('field_axes_frac',found,num_atoms,&
+!                              c_value=field_atoms_symbol,r_value=field_axes_cart,&
+!                              param_value=field_parameters,lsort=.true.,lnorm=.true.)
+!! //  Removed dependence of magnetic field with cartesian axis
+         call param_get_axes('field_axes_frac',found,num_atoms,&
+                              c_value=field_atoms_symbol,r_value=field_vectors_frac,&
+                              param_value=field_parameters,lsort=.true.,lnorm=.false.)
               do loop=1,num_atoms
                   if (all(abs(field_vectors_frac(:,loop)) .lt. eps4)) &
                      call io_error('Error: field_axes_frac cannot be zero')
