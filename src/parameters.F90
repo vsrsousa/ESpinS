@@ -19,6 +19,12 @@
 !######################################################################
 
 ! some parts of this module were taken from Wannier90 and modified according to our purposes.
+!
+! Modified by V.S.R. de Sousa
+! Date : january 2023
+! Included variables for Q-Heisenberg method
+! Removed magnetic field dependence on cartesian coordinates
+!
 
 module mc_parameters
 
@@ -135,6 +141,7 @@ module mc_parameters
   logical,                        public, save :: have_field
   real(kind=dp),    allocatable,  public, save :: field_parameters(:)
   real(kind=dp),    allocatable,  public, save :: field_axes_cart(:,:)
+  real(kind=dp),    allocatable,  public, save :: field_vectors_frac(:,:)
   character(len=3), allocatable,  public, save :: field_atoms_symbol(:)
 
   ! Order Parameter
@@ -370,7 +377,8 @@ contains
 
     mcarlo_mode       = 'random'
     call param_get_keyword('mcarlo_mode',found,c_value=mcarlo_mode)
-    if ((index(mcarlo_mode,'const').ne.1) .and. (index(mcarlo_mode,'rand').ne.1) ) &
+!    if ((index(mcarlo_mode,'const').ne.1) .and. (index(mcarlo_mode,'rand').ne.1) ) &
+    if ((index(mcarlo_mode,'const').ne.1) .and. (index(mcarlo_mode,'rand').ne.1) .and. (index(mcarlo_mode,'qspin').ne.1) ) &
        call io_error('Error: mcarlo_mode not recognised')
 
     tilt_angles_max   = 0.125
@@ -978,6 +986,8 @@ contains
        if (ierr/=0) call io_error('Error allocating field_parameters in param_read')
        allocate(field_axes_cart(3,num_atoms),stat=ierr)
        if (ierr/=0) call io_error('Error allocating field_axes_cart in param_read')
+       allocate (field_vectors_frac(3,num_atoms),stat=ierr)
+       if (ierr/=0) call io_error('Error allocating field_vectors_frac in param_read')
        allocate(field_atoms_symbol(num_atoms),stat=ierr)
        if (ierr/=0) call io_error('Error allocating field_atoms_symbol in param_read')
        
@@ -985,6 +995,15 @@ contains
           call param_get_axes('field_axes_frac',found,num_atoms,&
                               c_value=field_atoms_symbol,r_value=field_axes_cart,&
                               param_value=field_parameters,lsort=.true.,lnorm=.true.)
+!! //  Removing dependence of magnetic field with cartesian axis
+              do loop=1,num_atoms
+                  if (all(abs(field_vectors_frac(:,loop)) .lt. eps4)) &
+                     call io_error('Error: field_axes_frac cannot be zero')
+                field_vectors_frac(:,loop)=field_vectors_frac(:,loop)& 
+                                        /sqrt(dot_product(field_vectors_frac(:,loop),field_vectors_frac(:,loop)))
+             end do
+          field_axes_cart = field_vectors_frac
+!! //
        elseif (found2) then
           call param_get_axes('field_axes_cart',found,num_atoms,&
                               c_value=field_atoms_symbol,r_value=field_axes_cart,&

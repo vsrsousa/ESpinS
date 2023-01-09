@@ -243,7 +243,7 @@ contains
       !============================================!
 
  
-      use mc_jij, only    : mag_moments_matrix
+      use mc_jij, only        : mag_moments_matrix
       use mc_parameters, only : mcarlo_mode
 
       implicit none
@@ -300,7 +300,7 @@ contains
             local_spin_matrix(3,loop) = Sz
           end do
         else
-         do loop=1,num_total_atoms
+          do loop=1,num_total_atoms
 
             r1=mtprng_rand_real2(state)
 !            call random_number(r1)
@@ -310,7 +310,7 @@ contains
             local_spin_matrix(1,loop)=mag_moments_matrix(loop)*sin(r1*pi)*cos(r2*twopi)
             local_spin_matrix(2,loop)=mag_moments_matrix(loop)*sin(r1*pi)*sin(r2*twopi)
             local_spin_matrix(3,loop)=mag_moments_matrix(loop)*cos(r1*pi)
-          enddo
+          end do
         end if
       elseif (index(initial_sconfig,'file')>0 ) then
          allocate(local_spin_matrix_file(3,num_total_atoms,int(tems_num/num_nodes)), stat=ierr )

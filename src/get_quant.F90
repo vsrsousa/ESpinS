@@ -74,6 +74,7 @@ contains
       real(kind=dp)                :: delta_energy
       real(kind=dp)                :: delta_spin_matrix(3)
       real(kind=dp)                :: spin_old_norm(3),spinxy,spinx,spiny,spinz
+      real(kind=dp)                :: dspin
 
       mag = mag_moments_matrix(loop_at)
       spin_old(:) = spin_matrix(:,loop_at)
@@ -160,7 +161,6 @@ contains
         spin_matrix(2,loop_at) = mag*(sinphi*spin_old_norm(3)*spinx+cosphi*spiny+spin_old_norm(2)*spinz)
         spin_matrix(3,loop_at) = mag*(-sqrt(spin_old_norm(1)**2+spin_old_norm(2)**2)*spinx+spin_old_norm(3)*spinz)
         delta_spin_matrix(:) = spin_matrix(:,loop_at)-spin_old(:)
-
 
       elseif (index(mcarlo_mode,'qspins') > 0) then
 
