@@ -287,9 +287,9 @@ contains
                         abs(pos(2)-atoms_pos_frac(2,nsp,nat)) .le. eps4 .and. &
                         abs(pos(3)-atoms_pos_frac(3,nsp,nat)) .le. eps4 ) then
                        num_second_atom = (num_second_supercell-1)*num_atoms+nnx
-                       jij_tot_matrix(num_first_atom,num(num_first_atom)) = & 
-                       jij(ibors)
-!                       jij(ibors)/(abs(mag_moments_matrix(num_first_atom)*mag_moments_matrix(num_second_atom)))
+!                       jij_tot_matrix(num_first_atom,num(num_first_atom)) = & 
+!                            jij(ibors)/(abs(mag_moments_matrix(num_first_atom)*mag_moments_matrix(num_second_atom)))
+                       jij_tot_matrix(num_first_atom,num(num_first_atom)) = jij(ibors)
                        jij_tot_nbors_matrix(num_first_atom,num(num_first_atom)) = num_second_atom
                        shell_matrix(num_first_atom,num(num_first_atom)) = jij_shell(ibors)
                        sigma_tot_matrix(num_first_atom,num(num_first_atom)) = spin_glass_sigma(ibors)
