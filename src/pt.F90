@@ -252,7 +252,8 @@ contains
  
       use mc_jij, only    : mag_moments_matrix
       use stdtypes
-      use mtprng  
+      use mtprng
+      use mc_parameters, only : mcarlo_mode
 
       implicit none
 
@@ -262,6 +263,9 @@ contains
       real(kind=dp)              :: r1,r2
       integer                    :: ierr,ifreq
       real(kind=dp)              :: m_min,m_max
+      integer                    :: n
+      real(kind=dp)              :: Sx, Sy, Sz
+      real(kind=dp)              :: Stot, Saux, dspin
 !      integer,allocatable        :: seed_pt(:)
 
 
@@ -446,7 +450,30 @@ contains
             local_spin_matrix(3,:,loop_counts)=1.0_dp*mag_moments_matrix(:)
          enddo
       elseif (index(initial_sconfig,'rand')>0 ) then
-         do loop=1,num_total_atoms
+        if ( index(mcarlo_mode,'qspins')>0 ) then
+          do loop=1,num_total_atoms
+
+            r1 = mtprng_rand_real2(state)
+            r2 = mtprng_rand_real2(state)
+
+            Stot = mag_moments_matrix(loop)
+            dspin = 1.0/(2.0*Stot + 1.0)
+            n = int(r1/dspin)
+            Sz = -Stot + n
+            if(abs(Sz + Stot) > 0.1) then
+              Saux = (Stot**2 - Sz**2)**0.5
+              Sx = Saux*cos(r2*twopi)
+              Sy = Saux*sin(r2*twopi)
+            else
+              Sx = 0.0d0
+              Sy = 0.0d0
+            end if
+            local_spin_matrix(1,loop,:) = Sx
+            local_spin_matrix(2,loop,:) = Sy
+            local_spin_matrix(3,loop,:) = Sz
+          end do
+        else
+          do loop=1,num_total_atoms
 
             r1=mtprng_rand_real2(state)
 !            call random_number(r1)
@@ -456,7 +483,8 @@ contains
             local_spin_matrix(1,loop,:)=mag_moments_matrix(loop)*sin(r1*pi)*cos(r2*twopi)
             local_spin_matrix(2,loop,:)=mag_moments_matrix(loop)*sin(r1*pi)*sin(r2*twopi)
             local_spin_matrix(3,loop,:)=mag_moments_matrix(loop)*cos(r1*pi)
-          enddo
+          end do
+        end if
       elseif (index(initial_sconfig,'file')>0 ) then
 
         if(on_root) then
