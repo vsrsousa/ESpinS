@@ -66,6 +66,7 @@ contains
       real(kind=dp), intent(inout) :: spin_matrix(3,num_total_atoms) 
       real(kind=dp), intent(inout) :: energy_oc 
       integer(8),    intent(inout) :: rejected
+      integer                      :: n
       real(kind=dp)                :: random
       real(kind=dp)                :: costheta,sintheta, cosphi,sinphi
       real(kind=dp)                :: phi,theta,fac
@@ -160,6 +161,40 @@ contains
         spin_matrix(3,loop_at) = mag*(-sqrt(spin_old_norm(1)**2+spin_old_norm(2)**2)*spinx+spin_old_norm(3)*spinz)
         delta_spin_matrix(:) = spin_matrix(:,loop_at)-spin_old(:)
 
+
+      elseif (index(mcarlo_mode,'qspins') > 0) then
+
+        ! The idea of Q-spin mode is to quantize the z-axis. 
+        ! This can be done by restricting the S values along z in the range S, S-1, S-2, ..., -S
+        ! We can reach to this goal by first defining a weight for each S projection dspin = 1/(2*S+1)
+        ! and 
+        ! then transfer them to a restricted angle by multiply \theta to number less than 1, here is "tilt_angles_max". 
+        ! (Please see Fig.3 of  Journal of Computational Science 5 (2014) 696–700).
+        ! After generating the random phi and theta, then we rotate them to spin_old direction.
+        ! In this way we generate new direction for spin which are near to spin_old. If tilt_angles_max incrases, then 
+        ! the step change in each MC step increases. 
+
+        dspin = 1.0/(2.0*mag + 1.0)
+        random = mtprng_rand_real2(state)
+        n = int(random/dspin)
+        
+        spinz = -mag + n
+        
+        random = mtprng_rand_real2(state)
+        phi = random*twopi
+        if(abs(spinz-mag) > 0.1) then
+          spinxy = sqrt(mag**2 - spinz**2)
+          spinx = spinxy*cos(phi)
+          spiny = spinxy*sin(phi)
+        else
+          spinx = 0.0d0
+          spiny = 0.0d0
+        endif  
+
+        spin_matrix(1,loop_at) = spinx
+        spin_matrix(2,loop_at) = spiny
+        spin_matrix(3,loop_at) = spinz
+        delta_spin_matrix(:) = spin_matrix(:,loop_at)-spin_old(:)
 
       endif
 
