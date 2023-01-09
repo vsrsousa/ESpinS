@@ -45,8 +45,11 @@ module mc_constants
   real(kind=dp),    parameter, public :: eps8    = 1.0e-8_dp
   real(kind=dp),    parameter, public :: eps10   = 1.0e-10_dp
                     
-  real(kind=dp),    parameter, public :: k_B       =  8.6173303e-5_dp     ! eV/K
-  real(kind=dp),    parameter, public :: hart      = 27.21138602_dp       ! eV
-  real(kind=dp),    parameter, public :: bohr_magn =  5.7883818012e-5_dp  ! eV/T
+  real(kind=dp),    parameter, public :: k_B_eV       =  8.6173303e-5_dp     ! eV/K
+  real(kind=dp),    parameter, public :: hart_eV      = 27.21138602_dp       ! eV
+  real(kind=dp),    parameter, public :: bohr_magn_eV =  5.7883818012e-5_dp  ! eV/T
+  real(kind=dp),    parameter, public :: k_B          =  8.6173303e-2_dp     ! meV/K
+  real(kind=dp),    parameter, public :: hart         = 27.21138602_dp       ! eV
+  real(kind=dp),    parameter, public :: bohr_magn    =  5.7883818012e-2_dp  ! meV/T
 
 end module mc_constants

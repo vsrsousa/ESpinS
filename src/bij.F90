@@ -234,9 +234,9 @@ contains
                         abs(pos(2)-atoms_pos_frac(2,nsp,nat)) .le. eps4 .and. &
                         abs(pos(3)-atoms_pos_frac(3,nsp,nat)) .le. eps4 ) then
                        num_second_atom = (num_second_supercell-1)*num_atoms+nnx
-                       bij_tot_matrix(num_first_atom,num(num_first_atom))= &
-                            bij(ibors)
+!                       bij_tot_matrix(num_first_atom,num(num_first_atom))= &
 !                            bij(ibors)/(abs(mag_moments_matrix(num_first_atom)*mag_moments_matrix(num_second_atom)))
+                       bij_tot_matrix(num_first_atom,num(num_first_atom))= bij(ibors)
                        bij_tot_nbors_matrix(num_first_atom,num(num_first_atom))= num_second_atom
                        atom_found = .true.
                        exit ok1

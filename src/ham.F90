@@ -71,10 +71,11 @@ contains
              do nnx=1 , multi(nsp,nat,ndnn)
                 nat1 =  natlist(nsp,nat,ndnn,nnx)
                 nsp1 =  nsplist(nsp,nat,ndnn,nnx)
-                coef_j(nsp,nsp1,ndnn) = coef_j(nsp,nsp1,ndnn) + & 
-                                       mag_moments(nsp,nat)*mag_moments(nsp1,nat1)
+!                coef_j(nsp,nsp1,ndnn) = coef_j(nsp,nsp1,ndnn) + & 
 !                                       mag_moments(nsp,nat)*mag_moments(nsp1,nat1)/&
 !                                    abs(mag_moments(nsp,nat)*mag_moments(nsp1,nat1))
+                coef_j(nsp,nsp1,ndnn) = coef_j(nsp,nsp1,ndnn) + & 
+                                       mag_moments(nsp,nat)*mag_moments(nsp1,nat1)
              end do !nnx
           enddo
        enddo
