@@ -3,4 +3,6 @@ mc.x
 
 #Objects
 src/obj
-src/*.mod
+*.mod
+*.o
+
