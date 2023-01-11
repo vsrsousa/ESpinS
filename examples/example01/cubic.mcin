@@ -1,0 +1,51 @@
+ Begin Unit_Cell_Cart
+     5.29177211   0.00000000   0.00000000
+     0.00000000   5.29177211   0.00000000
+     0.00000000   0.00000000   5.29177211
+ End Unit_Cell_Cart
+ 
+ Begin Atoms_Frac
+  Mn       0.0000000   0.0000000   0.0000000    1.00
+ End Atoms_Frac
+ 
+ tem_start          =   5.05
+ tem_end            =   0.05
+ tems_num           =   100
+ !! tems_mode          = man
+ !! tems               = 5.00 10.00 15.00 20.00
+ 
+ !! Pt                 = .True.
+ !! Pt_steps_swap      = 10
+ 
+ steps_warmup      =       2000
+ steps_mc          =       4000
+ steps_measure     =          10
+
+ Staggered_m = .True.
+# spin_correlation = .True.
+
+ initial_sconfig   =       random
+# mcarlo_mode       =       qspins
+ mcarlo_mode       =       rand
+ 
+ supercell_size    =  10 10 10
+ 
+ Ham_field         = .True.
+# Begin Field_Axes_Frac
+#    Mn  1.0000  0.0000  0.0000  1.0
+# End Field_Axes_Frac
+
+ Begin Field_Vector
+    0.0000  0.0000  1.0000  1.0
+ End Field_Vector
+
+
+  ## Hamiltonian
+ Begin Jij_parameters
+  f1=    0.000000,    0.000000,    0.000000:f2=    1.000000,    0.000000,    0.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+  f1=    0.000000,    0.000000,    0.000000:f2=    0.000000,    1.000000,    0.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+  f1=    0.000000,    0.000000,    0.000000:f2=    0.000000,    0.000000,    1.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+  f1=    0.000000,    0.000000,    0.000000:f2=    0.000000,    0.000000,   -1.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+  f1=    0.000000,    0.000000,    0.000000:f2=    0.000000,   -1.000000,    0.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+  f1=    0.000000,    0.000000,    0.000000:f2=   -1.000000,    0.000000,    0.000000:jij=  0.08600000!:sh=  1!:t1=  1:t2=  1
+ End Jij_parameters

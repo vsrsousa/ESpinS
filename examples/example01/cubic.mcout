@@ -1,0 +1,932 @@
+ 
+               +-------------------------------------------------------+
+               |                                                       |
+               |                       ESpinS                          |
+               |                                                       |
+               +-------------------------------------------------------+
+               |                                                       |
+               |               Welcome to ESpinS Code                  |
+               |        A Code for Thermodynamic properties of         |
+               |        of Magnetic System based on Classical          |
+               |               Monte Carlo simulation.                 |
+               |                                                       |
+               +-------------------------------------------------------+
+               |      Execution started on 10Jan2023 at 21:58:39       |
+               +-------------------------------------------------------+
+
+ Running in parallel on  10 CPUs
+
+ WARNING: Calculation of staggered magnetization for one atom is
+          meaningless staggered_m was changed to .False.
+ 
+                                        ------
+                                        SYSTEM
+                                        ------
+ 
+                                 Lattice Vectors (Ang)
+                        a_1     5.291772   0.000000   0.000000
+                        a_2     0.000000   5.291772   0.000000
+                        a_3     0.000000   0.000000   5.291772
+ 
+                        Unit Cell Volume:     148.18471  (Ang^3)
+ 
+                           Reciprocal-Space Vectors (Ang^-1)
+                        b_1     1.187350   0.000000   0.000000
+                        b_2     0.000000   1.187350   0.000000
+                        b_3     0.000000   0.000000   1.187350
+  
+ *-----------------------------------------------------------------------------------*
+ | Atom  Type   Fractional Coordinate             Cartesian Coordinate(Ang)   Moment |
+ +-----------------------------------------------------------------------------------+
+ | Mn     1   0.00000   0.00000   0.00000   |   0.00000   0.00000   0.00000  | 1.000 |
+ *-----------------------------------------------------------------------------------*
+                                    --------------
+                                    SUPERCELL SIZE
+                                    --------------
+                             Supercell size = 10 x 10 x 10
+ 
+ *---------------------------------- MONTECARLO -------------------------------------*
+ |  Using Parallel Tempering algorithm         :                   F                 |
+ |  Initial spins configuration                :              random                 |
+ |  Monte Carlo Mode                           :                rand                 |
+ |  Number of Warm-up steps                    :                2000                 |
+ |  Number of Monte Carlo sampling steps       :                4000                 |
+ |  Number of steps to take a measurement      :                  10                 |
+ |  Order parameter (calculate/write)          :                   F                 |
+ |  Staggered Magnetization (calculate/write)  :                   F                 |
+ |  Structure Factor (calculate/write)         :                   F                 |
+ |  Energy               (write)               :                   F                 |
+ |  Spin correlation (calculate/write)         :                   F                 |
+ |  Auto correlation (calculate/write)         :                   F                 |
+ *--------------------------------- Temperatures ------------------------------------*
+ |  Temperature mode                           :                 lin                 |
+ |  Number of temperatures                     :                 100                 |
+ |  Starting temperature                       :               5.050                 |
+ |  Ending temperature                         :               0.050                 |
+ *-----------------------------------------------------------------------------------*
+ *---------------------------------- Hamiltonian ------------------------------------*
+ |  Exchange                                   :                   T                 |
+ |  Using random exchange parameters           :                   F                 |
+ |  Biquadratic                                :                   F                 |
+ |  Dzyaloshinskii-Moriya                      :                   F                 |
+ |  Single-ion                                 :                   F                 |
+ |  Magnetic field                             :                   T                 |
+ *-----------------------------------------------------------------------------------*
+  
+ *------------------------------------ Exchange -------------------------------------*
+ |   In Fractional Coordinate:                                                       |
+ *-----------------------------------------------------------------------------------*
+ |              ATOM 1                             ATOM 2                  J(eV)     |
+ *-----------------------------------------------------------------------------------*
+ |   0.000000   0.000000   0.000000 |   1.000000   0.000000   0.000000 |  0.08600000 |
+ |   0.000000   0.000000   0.000000 |   0.000000   1.000000   0.000000 |  0.08600000 |
+ |   0.000000   0.000000   0.000000 |   0.000000   0.000000   1.000000 |  0.08600000 |
+ |   0.000000   0.000000   0.000000 |   0.000000   0.000000  -1.000000 |  0.08600000 |
+ |   0.000000   0.000000   0.000000 |   0.000000  -1.000000   0.000000 |  0.08600000 |
+ |   0.000000   0.000000   0.000000 |  -1.000000   0.000000   0.000000 |  0.08600000 |
+ *-----------------------------------------------------------------------------------*
+  
+ *------------------------------- Magnetic Field ------------------------------------*
+ |                       Field  Coordinates (Normalized)          H(T)               |
+ +-----------------------------------------------------------------------------------+
+ |          0.0000  0.0000  1.0000 |        1.00000000 |
+ *-----------------------------------------------------------------------------------*
+  
+ Time to read parameters        0.006 (sec)
+ *===================================================================================*
+ |                                 MEMORY ESTIMATE                                   |
+ |            Maximum RAM allocated during each phase of the calculation             |
+ *===================================================================================*
+ |                                     Jij:            0.28 Mb                       |
+ |                             Monte-Carlo:            0.35 Mb                       |
+ |                                                                                   |
+ *-----------------------------------------------------------------------------------*
+  
+ Time to get Jij matrix         0.001 (sec)
+ *---------------------------- Random Number Generator ------------------------------*
+ |  Random number generatorg algorithm         :          Mersenne Twister           |
+ |  Initialized with seed derived from         :               Timer                 |
+ |  Seeds:                                                                           |
+ |       1444188735   229771663  -832356893  1318124907  -493571376  1841536467      |
+ |       1949462555   689123549 -1969590161  -635201482                              |
+ *-----------------------------------------------------------------------------------*
+
+ *--------------------------------- MONTECARLO --------------------------------------*
+ |     Temp      Total Steps    Rejected Steps    Accepted Steps   Acc/Tot Ratio     |
+ +-----------------------------------------------------------------------------------+
+      5.0500       20000000        3257306           16742694       0.83713470   <-- WARMUP
+      5.0500       40000000        6516846           33483154       0.83707885   <-- MCARLO
+     Initial Energy                           =  -0.2084413E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2497534E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2497534E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000629278
+                                 Delta M      = +/-     0.000336457
+ -------------------------------------------------------------------------------------
+      4.9995       20000000        3294727           16705273       0.83526365   <-- WARMUP
+      4.9995       40000000        6588327           33411673       0.83529182   <-- MCARLO
+     Initial Energy                           =  -0.1360598E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.3214636E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3214636E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000624394
+                                 Delta M      = +/-     0.000342526
+ -------------------------------------------------------------------------------------
+      4.9490       20000000        3328889           16671111       0.83355555   <-- WARMUP
+      4.9490       40000000        6660798           33339202       0.83348005   <-- MCARLO
+     Initial Energy                           =   0.4933875E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2673662E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2673662E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000645969
+                                 Delta M      = +/-     0.000344345
+ -------------------------------------------------------------------------------------
+      4.8985       20000000        3367418           16632582       0.83162910   <-- WARMUP
+      4.8985       40000000        6736533           33263467       0.83158668   <-- MCARLO
+     Initial Energy                           =  -0.1781563E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2524114E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2524114E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000633837
+                                 Delta M      = +/-     0.000341469
+ -------------------------------------------------------------------------------------
+      4.8480       20000000        3406667           16593333       0.82966665   <-- WARMUP
+      4.8480       40000000        6810997           33189003       0.82972508   <-- MCARLO
+     Initial Energy                           =  -0.6407638E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2769419E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2769419E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000632224
+                                 Delta M      = +/-     0.000346357
+ -------------------------------------------------------------------------------------
+      4.7975       20000000        3442426           16557574       0.82787870   <-- WARMUP
+      4.7975       40000000        6883313           33116687       0.82791717   <-- MCARLO
+     Initial Energy                           =   0.7963423E+01  <-- ENERGY
+     Final Energy by adding differences       =  -0.3604988E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3604988E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000632553
+                                 Delta M      = +/-     0.000348044
+ -------------------------------------------------------------------------------------
+      4.7470       20000000        3482704           16517296       0.82586480   <-- WARMUP
+      4.7470       40000000        6965506           33034494       0.82586235   <-- MCARLO
+     Initial Energy                           =   0.6481791E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2081022E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2081022E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000636985
+                                 Delta M      = +/-     0.000351690
+ -------------------------------------------------------------------------------------
+      4.6965       20000000        3521551           16478449       0.82392245   <-- WARMUP
+      4.6965       40000000        7048004           32951996       0.82379990   <-- MCARLO
+     Initial Energy                           =   0.2368516E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2968743E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2968743E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000650920
+                                 Delta M      = +/-     0.000354212
+ -------------------------------------------------------------------------------------
+      4.6460       20000000        3564793           16435207       0.82176035   <-- WARMUP
+      4.6460       40000000        7136934           32863066       0.82157665   <-- MCARLO
+     Initial Energy                           =  -0.9263173E+02  <-- ENERGY
+     Final Energy by adding differences       =  -0.2825238E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2825238E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000638276
+                                 Delta M      = +/-     0.000350000
+ -------------------------------------------------------------------------------------
+      4.5955       20000000        3608337           16391663       0.81958315   <-- WARMUP
+      4.5955       40000000        7219202           32780798       0.81951995   <-- MCARLO
+     Initial Energy                           =  -0.6204618E+01  <-- ENERGY
+     Final Energy by adding differences       =  -0.2618942E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2618942E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000641176
+                                 Delta M      = +/-     0.000357276
+ -------------------------------------------------------------------------------------
+      4.5449       20000000        3656389           16343611       0.81718055   <-- WARMUP
+      4.5449       40000000        7301875           32698125       0.81745313   <-- MCARLO
+     Initial Energy                           =  -0.2497534E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1381892E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1381892E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000657879
+                                 Delta M      = +/-     0.000360382
+ -------------------------------------------------------------------------------------
+      4.4944       20000000        3700906           16299094       0.81495470   <-- WARMUP
+      4.4944       40000000        7400028           32599972       0.81499930   <-- MCARLO
+     Initial Energy                           =  -0.3214636E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3334112E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3334112E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000661031
+                                 Delta M      = +/-     0.000360107
+ -------------------------------------------------------------------------------------
+      4.4439       20000000        3744810           16255190       0.81275950   <-- WARMUP
+      4.4439       40000000        7480755           32519245       0.81298112   <-- MCARLO
+     Initial Energy                           =  -0.2673662E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.2955984E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2955984E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000661979
+                                 Delta M      = +/-     0.000363712
+ -------------------------------------------------------------------------------------
+      4.3934       20000000        3787245           16212755       0.81063775   <-- WARMUP
+      4.3934       40000000        7578706           32421294       0.81053235   <-- MCARLO
+     Initial Energy                           =  -0.2524114E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.2391087E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2391087E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000662456
+                                 Delta M      = +/-     0.000363202
+ -------------------------------------------------------------------------------------
+      4.3429       20000000        3843578           16156422       0.80782110   <-- WARMUP
+      4.3429       40000000        7679590           32320410       0.80801025   <-- MCARLO
+     Initial Energy                           =  -0.2769419E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.2731061E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2731061E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000658908
+                                 Delta M      = +/-     0.000356421
+ -------------------------------------------------------------------------------------
+      4.2924       20000000        3889877           16110123       0.80550615   <-- WARMUP
+      4.2924       40000000        7779930           32220070       0.80550175   <-- MCARLO
+     Initial Energy                           =  -0.3604988E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.2606633E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2606633E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000679633
+                                 Delta M      = +/-     0.000367443
+ -------------------------------------------------------------------------------------
+      4.2419       20000000        3933193           16066807       0.80334035   <-- WARMUP
+      4.2419       40000000        7879447           32120553       0.80301382   <-- MCARLO
+     Initial Energy                           =  -0.2081022E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3152598E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3152598E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000673938
+                                 Delta M      = +/-     0.000364972
+ -------------------------------------------------------------------------------------
+      4.1914       20000000        3995114           16004886       0.80024430   <-- WARMUP
+      4.1914       40000000        7987436           32012564       0.80031410   <-- MCARLO
+     Initial Energy                           =  -0.2968743E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3183206E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3183206E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000670437
+                                 Delta M      = +/-     0.000367269
+ -------------------------------------------------------------------------------------
+      4.1409       20000000        4042526           15957474       0.79787370   <-- WARMUP
+      4.1409       40000000        8101208           31898792       0.79746980   <-- MCARLO
+     Initial Energy                           =  -0.2825238E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.2730260E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2730260E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000671459
+                                 Delta M      = +/-     0.000371018
+ -------------------------------------------------------------------------------------
+      4.0904       20000000        4101610           15898390       0.79491950   <-- WARMUP
+      4.0904       40000000        8208711           31791289       0.79478222   <-- MCARLO
+     Initial Energy                           =  -0.2618942E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3694347E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3694347E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000678009
+                                 Delta M      = +/-     0.000374263
+ -------------------------------------------------------------------------------------
+      4.0399       20000000        4154606           15845394       0.79226970   <-- WARMUP
+      4.0399       40000000        8323375           31676625       0.79191563   <-- MCARLO
+     Initial Energy                           =  -0.1381892E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3962043E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3962043E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000697765
+                                 Delta M      = +/-     0.000372628
+ -------------------------------------------------------------------------------------
+      3.9894       20000000        4220664           15779336       0.78896680   <-- WARMUP
+      3.9894       40000000        8446354           31553646       0.78884115   <-- MCARLO
+     Initial Energy                           =  -0.3334112E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4043690E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4043690E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000699405
+                                 Delta M      = +/-     0.000378379
+ -------------------------------------------------------------------------------------
+      3.9389       20000000        4282697           15717303       0.78586515   <-- WARMUP
+      3.9389       40000000        8565502           31434498       0.78586245   <-- MCARLO
+     Initial Energy                           =  -0.2955984E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3923935E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3923935E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000691628
+                                 Delta M      = +/-     0.000377420
+ -------------------------------------------------------------------------------------
+      3.8884       20000000        4348583           15651417       0.78257085   <-- WARMUP
+      3.8884       40000000        8696129           31303871       0.78259678   <-- MCARLO
+     Initial Energy                           =  -0.2391087E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3518021E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3518021E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000686740
+                                 Delta M      = +/-     0.000374766
+ -------------------------------------------------------------------------------------
+      3.8379       20000000        4414110           15585890       0.77929450   <-- WARMUP
+      3.8379       40000000        8820282           31179718       0.77949295   <-- MCARLO
+     Initial Energy                           =  -0.2731061E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3234286E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3234286E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000694677
+                                 Delta M      = +/-     0.000381589
+ -------------------------------------------------------------------------------------
+      3.7874       20000000        4477405           15522595       0.77612975   <-- WARMUP
+      3.7874       40000000        8956425           31043575       0.77608937   <-- MCARLO
+     Initial Energy                           =  -0.2606633E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3412380E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3412380E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000702055
+                                 Delta M      = +/-     0.000379187
+ -------------------------------------------------------------------------------------
+      3.7369       20000000        4550752           15449248       0.77246240   <-- WARMUP
+      3.7369       40000000        9095278           30904722       0.77261805   <-- MCARLO
+     Initial Energy                           =  -0.3152598E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3435558E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3435558E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000710955
+                                 Delta M      = +/-     0.000388424
+ -------------------------------------------------------------------------------------
+      3.6864       20000000        4622773           15377227       0.76886135   <-- WARMUP
+      3.6864       40000000        9241866           30758134       0.76895335   <-- MCARLO
+     Initial Energy                           =  -0.3183206E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4024786E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4024786E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000723664
+                                 Delta M      = +/-     0.000391167
+ -------------------------------------------------------------------------------------
+      3.6359       20000000        4694324           15305676       0.76528380   <-- WARMUP
+      3.6359       40000000        9398706           30601294       0.76503235   <-- MCARLO
+     Initial Energy                           =  -0.2730260E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4296391E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4296391E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000732249
+                                 Delta M      = +/-     0.000395535
+ -------------------------------------------------------------------------------------
+      3.5854       20000000        4772092           15227908       0.76139540   <-- WARMUP
+      3.5854       40000000        9537482           30462518       0.76156295   <-- MCARLO
+     Initial Energy                           =  -0.3694347E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4193035E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4193035E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000735428
+                                 Delta M      = +/-     0.000392868
+ -------------------------------------------------------------------------------------
+      3.5348       20000000        4846275           15153725       0.75768625   <-- WARMUP
+      3.5348       40000000        9702265           30297735       0.75744338   <-- MCARLO
+     Initial Energy                           =  -0.3962043E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3991905E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3991905E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000740843
+                                 Delta M      = +/-     0.000392931
+ -------------------------------------------------------------------------------------
+      3.4843       20000000        4938107           15061893       0.75309465   <-- WARMUP
+      3.4843       40000000        9863969           30136031       0.75340078   <-- MCARLO
+     Initial Energy                           =  -0.4043690E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3510469E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3510469E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000732536
+                                 Delta M      = +/-     0.000387684
+ -------------------------------------------------------------------------------------
+      3.4338       20000000        5021161           14978839       0.74894195   <-- WARMUP
+      3.4338       40000000       10041479           29958521       0.74896303   <-- MCARLO
+     Initial Energy                           =  -0.3923935E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4606066E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4606066E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000748996
+                                 Delta M      = +/-     0.000398759
+ -------------------------------------------------------------------------------------
+      3.3833       20000000        5107322           14892678       0.74463390   <-- WARMUP
+      3.3833       40000000       10216529           29783471       0.74458678   <-- MCARLO
+     Initial Energy                           =  -0.3518021E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4771810E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4771810E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000751598
+                                 Delta M      = +/-     0.000397505
+ -------------------------------------------------------------------------------------
+      3.3328       20000000        5202001           14797999       0.73989995   <-- WARMUP
+      3.3328       40000000       10394599           29605401       0.74013502   <-- MCARLO
+     Initial Energy                           =  -0.3234286E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4975583E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4975583E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000757626
+                                 Delta M      = +/-     0.000404672
+ -------------------------------------------------------------------------------------
+      3.2823       20000000        5299233           14700767       0.73503835   <-- WARMUP
+      3.2823       40000000       10589479           29410521       0.73526302   <-- MCARLO
+     Initial Energy                           =  -0.3412380E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.3584884E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3584884E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000783927
+                                 Delta M      = +/-     0.000410800
+ -------------------------------------------------------------------------------------
+      3.2318       20000000        5403293           14596707       0.72983535   <-- WARMUP
+      3.2318       40000000       10797975           29202025       0.73005062   <-- MCARLO
+     Initial Energy                           =  -0.3435558E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4844382E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4844382E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000792335
+                                 Delta M      = +/-     0.000414829
+ -------------------------------------------------------------------------------------
+      3.1813       20000000        5503266           14496734       0.72483670   <-- WARMUP
+      3.1813       40000000       11005325           28994675       0.72486688   <-- MCARLO
+     Initial Energy                           =  -0.4024786E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4489975E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4489975E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000779496
+                                 Delta M      = +/-     0.000417711
+ -------------------------------------------------------------------------------------
+      3.1308       20000000        5615995           14384005       0.71920025   <-- WARMUP
+      3.1308       40000000       11218010           28781990       0.71954975   <-- MCARLO
+     Initial Energy                           =  -0.4296391E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.5168922E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.5168922E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000785624
+                                 Delta M      = +/-     0.000410618
+ -------------------------------------------------------------------------------------
+      3.0803       20000000        5731727           14268273       0.71341365   <-- WARMUP
+      3.0803       40000000       11442940           28557060       0.71392650   <-- MCARLO
+     Initial Energy                           =  -0.4193035E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4989188E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4989188E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000818087
+                                 Delta M      = +/-     0.000421708
+ -------------------------------------------------------------------------------------
+      3.0298       20000000        5851675           14148325       0.70741625   <-- WARMUP
+      3.0298       40000000       11690788           28309212       0.70773030   <-- MCARLO
+     Initial Energy                           =  -0.3991905E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.4777835E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.4777835E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000813834
+                                 Delta M      = +/-     0.000421719
+ -------------------------------------------------------------------------------------
+      2.9793       20000000        5972436           14027564       0.70137820   <-- WARMUP
+      2.9793       40000000       11950336           28049664       0.70124160   <-- MCARLO
+     Initial Energy                           =  -0.3510469E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6155189E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6155189E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000832802
+                                 Delta M      = +/-     0.000420082
+ -------------------------------------------------------------------------------------
+      2.9288       20000000        6103375           13896625       0.69483125   <-- WARMUP
+      2.9288       40000000       12210354           27789646       0.69474115   <-- MCARLO
+     Initial Energy                           =  -0.4606066E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.5835229E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.5835229E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000831834
+                                 Delta M      = +/-     0.000429491
+ -------------------------------------------------------------------------------------
+      2.8783       20000000        6233430           13766570       0.68832850   <-- WARMUP
+      2.8783       40000000       12493377           27506623       0.68766558   <-- MCARLO
+     Initial Energy                           =  -0.4771810E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6514319E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6514319E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000839870
+                                 Delta M      = +/-     0.000421426
+ -------------------------------------------------------------------------------------
+      2.8278       20000000        6387848           13612152       0.68060760   <-- WARMUP
+      2.8278       40000000       12761163           27238837       0.68097093   <-- MCARLO
+     Initial Energy                           =  -0.4975583E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.5575788E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.5575788E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000858753
+                                 Delta M      = +/-     0.000430780
+ -------------------------------------------------------------------------------------
+      2.7773       20000000        6536225           13463775       0.67318875   <-- WARMUP
+      2.7773       40000000       13076386           26923614       0.67309035   <-- MCARLO
+     Initial Energy                           =  -0.3584884E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6478493E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6478493E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000889605
+                                 Delta M      = +/-     0.000432288
+ -------------------------------------------------------------------------------------
+      2.7268       20000000        6700122           13299878       0.66499390   <-- WARMUP
+      2.7268       40000000       13400708           26599292       0.66498230   <-- MCARLO
+     Initial Energy                           =  -0.4844382E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.5664622E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.5664622E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000888726
+                                 Delta M      = +/-     0.000435168
+ -------------------------------------------------------------------------------------
+      2.6763       20000000        6867513           13132487       0.65662435   <-- WARMUP
+      2.6763       40000000       13739729           26260271       0.65650677   <-- MCARLO
+     Initial Energy                           =  -0.4489975E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6751345E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6751345E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000903400
+                                 Delta M      = +/-     0.000437164
+ -------------------------------------------------------------------------------------
+      2.6258       20000000        7046863           12953137       0.64765685   <-- WARMUP
+      2.6258       40000000       14078988           25921012       0.64802530   <-- MCARLO
+     Initial Energy                           =  -0.5168922E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.7864535E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.7864535E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000919170
+                                 Delta M      = +/-     0.000435719
+ -------------------------------------------------------------------------------------
+      2.5753       20000000        7233475           12766525       0.63832625   <-- WARMUP
+      2.5753       40000000       14469839           25530161       0.63825402   <-- MCARLO
+     Initial Energy                           =  -0.4989188E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6514067E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6514067E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000955064
+                                 Delta M      = +/-     0.000444242
+ -------------------------------------------------------------------------------------
+      2.5247       20000000        7434987           12565013       0.62825065   <-- WARMUP
+      2.5247       40000000       14870104           25129896       0.62824740   <-- MCARLO
+     Initial Energy                           =  -0.4777835E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.6795832E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.6795832E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000961801
+                                 Delta M      = +/-     0.000440337
+ -------------------------------------------------------------------------------------
+      2.4742       20000000        7643220           12356780       0.61783900   <-- WARMUP
+      2.4742       40000000       15291043           24708957       0.61772392   <-- MCARLO
+     Initial Energy                           =  -0.6155189E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.7426125E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.7426125E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000973838
+                                 Delta M      = +/-     0.000436613
+ -------------------------------------------------------------------------------------
+      2.4237       20000000        7870605           12129395       0.60646975   <-- WARMUP
+      2.4237       40000000       15735435           24264565       0.60661413   <-- MCARLO
+     Initial Energy                           =  -0.5835229E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.8490950E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.8490950E+03  <-- ENERGY
+                                 Delta E      = +/-     0.000982879
+                                 Delta M      = +/-     0.000440827
+ -------------------------------------------------------------------------------------
+      2.3732       20000000        8104726           11895274       0.59476370   <-- WARMUP
+      2.3732       40000000       16216494           23783506       0.59458765   <-- MCARLO
+     Initial Energy                           =  -0.6514319E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.8019803E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.8019803E+03  <-- ENERGY
+                                 Delta E      = +/-     0.001028174
+                                 Delta M      = +/-     0.000450023
+ -------------------------------------------------------------------------------------
+      2.3227       20000000        8347614           11652386       0.58261930   <-- WARMUP
+      2.3227       40000000       16714950           23285050       0.58212625   <-- MCARLO
+     Initial Energy                           =  -0.5575788E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.8051876E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.8051876E+03  <-- ENERGY
+                                 Delta E      = +/-     0.001037195
+                                 Delta M      = +/-     0.000449883
+ -------------------------------------------------------------------------------------
+      2.2722       20000000        8609783           11390217       0.56951085   <-- WARMUP
+      2.2722       40000000       17237973           22762027       0.56905067   <-- MCARLO
+     Initial Energy                           =  -0.6478493E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.8075025E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.8075025E+03  <-- ENERGY
+                                 Delta E      = +/-     0.001015781
+                                 Delta M      = +/-     0.000431425
+ -------------------------------------------------------------------------------------
+      2.2217       20000000        8894722           11105278       0.55526390   <-- WARMUP
+      2.2217       40000000       17784582           22215418       0.55538545   <-- MCARLO
+     Initial Energy                           =  -0.5664622E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.9543842E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.9543842E+03  <-- ENERGY
+                                 Delta E      = +/-     0.001083357
+                                 Delta M      = +/-     0.000445966
+ -------------------------------------------------------------------------------------
+      2.1712       20000000        9199426           10800574       0.54002870   <-- WARMUP
+      2.1712       40000000       18372432           21627568       0.54068920   <-- MCARLO
+     Initial Energy                           =  -0.6751345E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.9536071E+03  <-- ENERGY
+     Final Energy by direct calculations      =  -0.9536071E+03  <-- ENERGY
+                                 Delta E      = +/-     0.001056154
+                                 Delta M      = +/-     0.000427951
+ -------------------------------------------------------------------------------------
+      2.1207       20000000        9493050           10506950       0.52534750   <-- WARMUP
+      2.1207       40000000       18980811           21019189       0.52547972   <-- MCARLO
+     Initial Energy                           =  -0.7864535E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1121992E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1121992E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001089821
+                                 Delta M      = +/-     0.000430849
+ -------------------------------------------------------------------------------------
+      2.0702       20000000        9819991           10180009       0.50900045   <-- WARMUP
+      2.0702       40000000       19638086           20361914       0.50904785   <-- MCARLO
+     Initial Energy                           =  -0.6514067E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1248923E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1248923E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001093571
+                                 Delta M      = +/-     0.000415949
+ -------------------------------------------------------------------------------------
+      2.0197       20000000       10140148            9859852       0.49299260   <-- WARMUP
+      2.0197       40000000       20291332           19708668       0.49271670   <-- MCARLO
+     Initial Energy                           =  -0.6795832E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1198860E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1198860E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001109761
+                                 Delta M      = +/-     0.000409871
+ -------------------------------------------------------------------------------------
+      1.9692       20000000       10486972            9513028       0.47565140   <-- WARMUP
+      1.9692       40000000       20997181           19002819       0.47507047   <-- MCARLO
+     Initial Energy                           =  -0.7426125E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1320859E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1320859E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001098322
+                                 Delta M      = +/-     0.000392793
+ -------------------------------------------------------------------------------------
+      1.9187       20000000       10844183            9155817       0.45779085   <-- WARMUP
+      1.9187       40000000       21669882           18330118       0.45825295   <-- MCARLO
+     Initial Energy                           =  -0.8490950E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1444892E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1444892E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001073321
+                                 Delta M      = +/-     0.000378407
+ -------------------------------------------------------------------------------------
+      1.8682       20000000       11196275            8803725       0.44018625   <-- WARMUP
+      1.8682       40000000       22374201           17625799       0.44064497   <-- MCARLO
+     Initial Energy                           =  -0.8019803E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1330437E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1330437E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001085129
+                                 Delta M      = +/-     0.000366140
+ -------------------------------------------------------------------------------------
+      1.8177       20000000       11546460            8453540       0.42267700   <-- WARMUP
+      1.8177       40000000       23102763           16897237       0.42243093   <-- MCARLO
+     Initial Energy                           =  -0.8051876E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1564330E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1564330E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001069232
+                                 Delta M      = +/-     0.000357205
+ -------------------------------------------------------------------------------------
+      1.7672       20000000       11904025            8095975       0.40479875   <-- WARMUP
+      1.7672       40000000       23823395           16176605       0.40441512   <-- MCARLO
+     Initial Energy                           =  -0.8075025E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1591197E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1591197E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001052306
+                                 Delta M      = +/-     0.000341254
+ -------------------------------------------------------------------------------------
+      1.7167       20000000       12274135            7725865       0.38629325   <-- WARMUP
+      1.7167       40000000       24534996           15465004       0.38662510   <-- MCARLO
+     Initial Energy                           =  -0.9543842E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1619746E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1619746E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001035784
+                                 Delta M      = +/-     0.000321481
+ -------------------------------------------------------------------------------------
+      1.6662       20000000       12624204            7375796       0.36878980   <-- WARMUP
+      1.6662       40000000       25251338           14748662       0.36871655   <-- MCARLO
+     Initial Energy                           =  -0.9536071E+03  <-- ENERGY
+     Final Energy by adding differences       =  -0.1568251E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1568251E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001002171
+                                 Delta M      = +/-     0.000305218
+ -------------------------------------------------------------------------------------
+      1.6157       20000000       12976039            7023961       0.35119805   <-- WARMUP
+      1.6157       40000000       25924891           14075109       0.35187772   <-- MCARLO
+     Initial Energy                           =  -0.1121992E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.1756247E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1756247E+04  <-- ENERGY
+                                 Delta E      = +/-     0.001013817
+                                 Delta M      = +/-     0.000300356
+ -------------------------------------------------------------------------------------
+      1.5652       20000000       13303330            6696670       0.33483350   <-- WARMUP
+      1.5652       40000000       26616656           13383344       0.33458360   <-- MCARLO
+     Initial Energy                           =  -0.1248923E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.1918691E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1918691E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000961052
+                                 Delta M      = +/-     0.000277608
+ -------------------------------------------------------------------------------------
+      1.5146       20000000       13632792            6367208       0.31836040   <-- WARMUP
+      1.5146       40000000       27271816           12728184       0.31820460   <-- MCARLO
+     Initial Energy                           =  -0.1198860E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.1856145E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1856145E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000929780
+                                 Delta M      = +/-     0.000263362
+ -------------------------------------------------------------------------------------
+      1.4641       20000000       13951295            6048705       0.30243525   <-- WARMUP
+      1.4641       40000000       27911015           12088985       0.30222463   <-- MCARLO
+     Initial Energy                           =  -0.1320859E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.1969504E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.1969504E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000876956
+                                 Delta M      = +/-     0.000243187
+ -------------------------------------------------------------------------------------
+      1.4136       20000000       14265992            5734008       0.28670040   <-- WARMUP
+      1.4136       40000000       28522545           11477455       0.28693638   <-- MCARLO
+     Initial Energy                           =  -0.1444892E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2005941E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2005941E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000835545
+                                 Delta M      = +/-     0.000230495
+ -------------------------------------------------------------------------------------
+      1.3631       20000000       14559433            5440567       0.27202835   <-- WARMUP
+      1.3631       40000000       29123295           10876705       0.27191762   <-- MCARLO
+     Initial Energy                           =  -0.1330437E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2022589E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2022589E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000821573
+                                 Delta M      = +/-     0.000221199
+ -------------------------------------------------------------------------------------
+      1.3126       20000000       14851348            5148652       0.25743260   <-- WARMUP
+      1.3126       40000000       29698274           10301726       0.25754315   <-- MCARLO
+     Initial Energy                           =  -0.1564330E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2097156E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2097156E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000758712
+                                 Delta M      = +/-     0.000200567
+ -------------------------------------------------------------------------------------
+      1.2621       20000000       15132692            4867308       0.24336540   <-- WARMUP
+      1.2621       40000000       30256280            9743720       0.24359300   <-- MCARLO
+     Initial Energy                           =  -0.1591197E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2284715E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2284715E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000738099
+                                 Delta M      = +/-     0.000191544
+ -------------------------------------------------------------------------------------
+      1.2116       20000000       15397008            4602992       0.23014960   <-- WARMUP
+      1.2116       40000000       30781682            9218318       0.23045795   <-- MCARLO
+     Initial Energy                           =  -0.1619746E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2235323E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2235323E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000699129
+                                 Delta M      = +/-     0.000179272
+ -------------------------------------------------------------------------------------
+      1.1611       20000000       15654310            4345690       0.21728450   <-- WARMUP
+      1.1611       40000000       31312242            8687758       0.21719395   <-- MCARLO
+     Initial Energy                           =  -0.1568251E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2395376E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2395376E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000657348
+                                 Delta M      = +/-     0.000165380
+ -------------------------------------------------------------------------------------
+      1.1106       20000000       15901787            4098213       0.20491065   <-- WARMUP
+      1.1106       40000000       31797595            8202405       0.20506013   <-- MCARLO
+     Initial Energy                           =  -0.1756247E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2422534E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2422534E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000627045
+                                 Delta M      = +/-     0.000156950
+ -------------------------------------------------------------------------------------
+      1.0601       20000000       16139763            3860237       0.19301185   <-- WARMUP
+      1.0601       40000000       32277412            7722588       0.19306470   <-- MCARLO
+     Initial Energy                           =  -0.1918691E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2534125E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2534125E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000607697
+                                 Delta M      = +/-     0.000150708
+ -------------------------------------------------------------------------------------
+      1.0096       20000000       16371599            3628401       0.18142005   <-- WARMUP
+      1.0096       40000000       32744967            7255033       0.18137582   <-- MCARLO
+     Initial Energy                           =  -0.1856145E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2571889E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2571889E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000564010
+                                 Delta M      = +/-     0.000138027
+ -------------------------------------------------------------------------------------
+      0.9591       20000000       16598598            3401402       0.17007010   <-- WARMUP
+      0.9591       40000000       33188541            6811459       0.17028647   <-- MCARLO
+     Initial Energy                           =  -0.1969504E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2624915E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2624915E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000528276
+                                 Delta M      = +/-     0.000128025
+ -------------------------------------------------------------------------------------
+      0.9086       20000000       16814625            3185375       0.15926875   <-- WARMUP
+      0.9086       40000000       33623036            6376964       0.15942410   <-- MCARLO
+     Initial Energy                           =  -0.2005941E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2709113E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2709113E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000490492
+                                 Delta M      = +/-     0.000118673
+ -------------------------------------------------------------------------------------
+      0.8581       20000000       17021755            2978245       0.14891225   <-- WARMUP
+      0.8581       40000000       34048522            5951478       0.14878695   <-- MCARLO
+     Initial Energy                           =  -0.2022589E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2747493E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2747493E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000465676
+                                 Delta M      = +/-     0.000110123
+ -------------------------------------------------------------------------------------
+      0.8076       20000000       17233347            2766653       0.13833265   <-- WARMUP
+      0.8076       40000000       34464172            5535828       0.13839570   <-- MCARLO
+     Initial Energy                           =  -0.2097156E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2783143E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2783143E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000423686
+                                 Delta M      = +/-     0.000100872
+ -------------------------------------------------------------------------------------
+      0.7571       20000000       17431925            2568075       0.12840375   <-- WARMUP
+      0.7571       40000000       34860490            5139510       0.12848775   <-- MCARLO
+     Initial Energy                           =  -0.2284715E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2802136E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2802136E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000395850
+                                 Delta M      = +/-     0.000093336
+ -------------------------------------------------------------------------------------
+      0.7066       20000000       17625637            2374363       0.11871815   <-- WARMUP
+      0.7066       40000000       35249028            4750972       0.11877430   <-- MCARLO
+     Initial Energy                           =  -0.2235323E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2896133E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2896133E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000370166
+                                 Delta M      = +/-     0.000085964
+ -------------------------------------------------------------------------------------
+      0.6561       20000000       17815858            2184142       0.10920710   <-- WARMUP
+      0.6561       40000000       35632985            4367015       0.10917538   <-- MCARLO
+     Initial Energy                           =  -0.2395376E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.2982492E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.2982492E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000351336
+                                 Delta M      = +/-     0.000081463
+ -------------------------------------------------------------------------------------
+      0.6056       20000000       18002921            1997079       0.09985395   <-- WARMUP
+      0.6056       40000000       36013965            3986035       0.09965087   <-- MCARLO
+     Initial Energy                           =  -0.2422534E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3032311E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3032311E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000322273
+                                 Delta M      = +/-     0.000074025
+ -------------------------------------------------------------------------------------
+      0.5551       20000000       18185111            1814889       0.09074445   <-- WARMUP
+      0.5551       40000000       36376172            3623828       0.09059570   <-- MCARLO
+     Initial Energy                           =  -0.2534125E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3087492E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3087492E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000282988
+                                 Delta M      = +/-     0.000066055
+ -------------------------------------------------------------------------------------
+      0.5045       20000000       18364917            1635083       0.08175415   <-- WARMUP
+      0.5045       40000000       36732697            3267303       0.08168257   <-- MCARLO
+     Initial Energy                           =  -0.2571889E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3156981E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3156981E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000261377
+                                 Delta M      = +/-     0.000059646
+ -------------------------------------------------------------------------------------
+      0.4540       20000000       18543211            1456789       0.07283945   <-- WARMUP
+      0.4540       40000000       37085193            2914807       0.07287017   <-- MCARLO
+     Initial Energy                           =  -0.2624915E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3199468E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3199468E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000243489
+                                 Delta M      = +/-     0.000054383
+ -------------------------------------------------------------------------------------
+      0.4035       20000000       18716521            1283479       0.06417395   <-- WARMUP
+      0.4035       40000000       37430914            2569086       0.06422715   <-- MCARLO
+     Initial Energy                           =  -0.2709113E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3239437E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3239437E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000202722
+                                 Delta M      = +/-     0.000045761
+ -------------------------------------------------------------------------------------
+      0.3530       20000000       18882952            1117048       0.05585240   <-- WARMUP
+      0.3530       40000000       37771125            2228875       0.05572187   <-- MCARLO
+     Initial Energy                           =  -0.2747493E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3305983E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3305983E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000179545
+                                 Delta M      = +/-     0.000039761
+ -------------------------------------------------------------------------------------
+      0.3025       20000000       19052937             947063       0.04735315   <-- WARMUP
+      0.3025       40000000       38102181            1897819       0.04744548   <-- MCARLO
+     Initial Energy                           =  -0.2783143E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3354440E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3354440E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000152793
+                                 Delta M      = +/-     0.000033820
+ -------------------------------------------------------------------------------------
+      0.2520       20000000       19214227             785773       0.03928865   <-- WARMUP
+      0.2520       40000000       38432621            1567379       0.03918448   <-- MCARLO
+     Initial Energy                           =  -0.2802136E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3414856E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3414856E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000123065
+                                 Delta M      = +/-     0.000027576
+ -------------------------------------------------------------------------------------
+      0.2015       20000000       19376073             623927       0.03119635   <-- WARMUP
+      0.2015       40000000       38753733            1246267       0.03115668   <-- MCARLO
+     Initial Energy                           =  -0.2896133E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3460469E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3460469E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000103997
+                                 Delta M      = +/-     0.000023279
+ -------------------------------------------------------------------------------------
+      0.1510       20000000       19535732             464268       0.02321340   <-- WARMUP
+      0.1510       40000000       39073718             926282       0.02315705   <-- MCARLO
+     Initial Energy                           =  -0.2982492E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3507619E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3507619E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000079222
+                                 Delta M      = +/-     0.000017629
+ -------------------------------------------------------------------------------------
+      0.1005       20000000       19691535             308465       0.01542325   <-- WARMUP
+      0.1005       40000000       39387208             612792       0.01531980   <-- MCARLO
+     Initial Energy                           =  -0.3032311E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3564619E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3564619E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000052415
+                                 Delta M      = +/-     0.000011374
+ -------------------------------------------------------------------------------------
+      0.0500       20000000       19845736             154264       0.00771320   <-- WARMUP
+      0.0500       40000000       39697505             302495       0.00756237   <-- MCARLO
+     Initial Energy                           =  -0.3087492E+04  <-- ENERGY
+     Final Energy by adding differences       =  -0.3614417E+04  <-- ENERGY
+     Final Energy by direct calculations      =  -0.3614417E+04  <-- ENERGY
+                                 Delta E      = +/-     0.000024329
+                                 Delta M      = +/-     0.000005239
+ -------------------------------------------------------------------------------------
+   Transport properties calculated.
+
+ Time for montecarlo      60.759 (sec)
+
+ Total Execution Time          60.765 (sec)
+
+ *===================================================================================*
+ |                                 TIMING INFORMATION                                |
+ *===================================================================================*
+ |    Tag                                                Ncalls      Time (s)        |
+ |-----------------------------------------------------------------------------------|
+ |jij: get                                        :         1         0.001          |
+ |mcarlo_main                                     :         1        60.684          |
+ *-----------------------------------------------------------------------------------*
+
+ All done: mcarlo exiting

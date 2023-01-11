@@ -153,6 +153,7 @@ module mc_common
                               have_singleion,singleion_parameters,&
                               singleion_axes_cart,num_atoms,jij_shell_max,&
                               have_field,field_axes_cart,&
+                              field_vector,found3,&
                               field_parameters,num_species,lspincorr
     use mc_jij,        only : jij_matrix,mag_moments_matrix,&
                               jij_num_nbors_matrix,jij_nbors_matrix,&
@@ -253,12 +254,19 @@ module mc_common
        endif
 
        if (have_field .and. .not.allocated(field_parameters))then
+         if(found3) then
+          allocate(field_parameters(1),stat=ierr)
+          if (ierr/=0) call io_error('error allocating field_parameters in mcint_data_dist')
+          allocate(field_vector(3),stat=ierr)
+          if (ierr/=0) call io_error('error allocating field_vector in mcint_data_dist')
+         else
           allocate(field_parameters(num_atoms),stat=ierr)
           if (ierr/=0)&
              call io_error('error allocating field_parameters in mcint_data_dist')
           allocate(field_axes_cart(3,num_atoms),stat=ierr)
           if (ierr/=0)&
              call io_error('error allocating field_axes_cart in mcint_data_dist')
+         endif
        endif
  
     endif ! .not. on_root
@@ -291,8 +299,13 @@ module mc_common
     endif
 
     if (have_field) then
+      if(found3)then
+       call comms_bcast(field_parameters(1),1)
+       call comms_bcast(field_vector(1),3)
+      else
        call comms_bcast(field_parameters(1),num_atoms)
        call comms_bcast(field_axes_cart(1,1),3*num_atoms)
+      endif
     endif
 
   end subroutine mcint_data_dist

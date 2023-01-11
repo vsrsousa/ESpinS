@@ -143,6 +143,8 @@ module mc_parameters
   real(kind=dp),    allocatable,  public, save :: field_axes_cart(:,:)
   real(kind=dp),    allocatable,  public, save :: field_vectors_frac(:,:)
   character(len=3), allocatable,  public, save :: field_atoms_symbol(:)
+  logical,                        public, save :: found3
+  real(kind=dp),    allocatable,  public, save :: field_vector(:)
 
   ! Order Parameter
   logical,                        public, save :: lorderparam
@@ -973,10 +975,15 @@ contains
     lunits = .false.
     call param_get_block_length('field_axes_frac',found,i_tmp)
     call param_get_block_length('field_axes_cart',found2,i_tmp,lunits)
-    if (found.and.found2) &
-       call io_error('Error: Cannot specify both field_axes_frac and field_axes_cart')
-    if (have_field .and. .not.file_setup .and. .not.found .and. .not.found2) &
-       call io_error('Error: singeleion is true but no field_axes_frac or field_axes_cart found')
+    call param_get_block_length('field_vector',found3,i_tmp)
+!    if (found.and.found2) &
+!    call io_error('Error: Cannot specify both field_axes_frac and field_axes_cart')
+!    if (have_field .and. .not.file_setup .and. .not.found .and. .not.found2) &
+!       call io_error('Error: singeleion is true but no field_axes_frac or field_axes_cart found')
+    if (found.and.found2.and.found3) &
+       call io_error('Error: Cannot specify field_axes_frac, field_axes_cart and field_vector')
+    if (have_field .and. .not.file_setup .and. .not.found .and. .not.found2 .and. .not.found3) &
+       call io_error('Error: Magnetic field is true but no field_axes_frac or field_axes_cart or field_vector found')
 
     if (found .or. found2) then
        if (lunits) i_tmp = i_tmp-1
@@ -996,15 +1003,16 @@ contains
 !                              c_value=field_atoms_symbol,r_value=field_axes_cart,&
 !                              param_value=field_parameters,lsort=.true.,lnorm=.true.)
 !! //  Removed dependence of magnetic field with cartesian axis
-         call param_get_axes('field_axes_frac',found,num_atoms,&
+!         call param_get_axes('field_axes_frac',found,num_atoms,&
+         call param_get_field_axes('field_axes_frac',found,num_atoms,&
                               c_value=field_atoms_symbol,r_value=field_vectors_frac,&
-                              param_value=field_parameters,lsort=.true.,lnorm=.false.)
-              do loop=1,num_atoms
-                  if (all(abs(field_vectors_frac(:,loop)) .lt. eps4)) &
-                     call io_error('Error: field_axes_frac cannot be zero')
-                field_vectors_frac(:,loop)=field_vectors_frac(:,loop)& 
-                                        /sqrt(dot_product(field_vectors_frac(:,loop),field_vectors_frac(:,loop)))
-             end do
+                              param_value=field_parameters,lsort=.true.,lnorm=.true.)
+!              do loop=1,num_atoms
+!                  if (all(abs(field_vectors_frac(:,loop)) .lt. eps4)) &
+!                     call io_error('Error: field_axes_frac cannot be zero')
+!                field_vectors_frac(:,loop)=field_vectors_frac(:,loop)& 
+!                                        /sqrt(dot_product(field_vectors_frac(:,loop),field_vectors_frac(:,loop)))
+!              end do
           field_axes_cart = field_vectors_frac
 !! //
        elseif (found2) then
@@ -1014,6 +1022,17 @@ contains
        end if
        ! Tesla to Kelvin
        field_parameters(:) = field_parameters(:)*bohr_magn/k_B
+    elseif (found3)then
+      allocate(field_parameters(1),stat=ierr)
+      if (ierr/=0) call io_error('Error allocating field_parameters in param_read')
+      allocate(field_vector(3),stat=ierr)
+      if (ierr/=0) call io_error('Error allocating field_vector in param_read')
+      call param_get_field_vector('field_vector',found3, &
+                                   r_value=field_vector,&
+                                   param_value=field_parameters,&
+                                   lnorm=.true.)
+      ! Tesla to Kelvin
+      field_parameters = field_parameters*bohr_magn/k_B
     endif
 
    ! check to see that there are no unrecognised keywords
@@ -1382,14 +1401,22 @@ contains
      endif
 
      if (have_field) then
+      if (found3)then
         write(stdout,'(1x,a85)') '*------------------------------- Magnetic Field ------------------------------------*'
-        write(stdout,'(1x,a85)') '| Atoms   Fractional Coordinate     Cartesian Coordinate (Normalized)      H(T)     |'
+        write(stdout,'(1x,a85)') '|                       Field  Coordinates (Normalized)          H(T)               |'
         write(stdout,'(1x,a85)') '+-----------------------------------------------------------------------------------+'
-        do loop=1,num_atoms
+           write(stdout,'(1x,a1,8x,3F8.4,1x,a1,3x,F15.8,1x,a1)') '|',field_Vector(:),'|',field_parameters*k_B/bohr_magn,'|'
+      else
+         write(stdout,'(1x,a85)') '*------------------------------- Magnetic Field ------------------------------------*'
+         write(stdout,'(1x,a85)') '| Atoms   Fractional Coordinate     Cartesian Coordinate (Normalized)      H(T)     |'
+         write(stdout,'(1x,a85)') '+-----------------------------------------------------------------------------------+'
+         do loop=1,num_atoms
            call utility_cart_to_frac (field_axes_cart(:,loop),vec_tmp1(:),recip_lattice)
            write(stdout,'(1x,a1,2x,a3,1x,3F8.4,2x,a1,1x,3F8.4,7x,a1,1x,F15.8,1x,a1)') '|',field_atoms_symbol(loop)&
-                                      ,vec_tmp1(:),'|',field_axes_cart(:,loop),'|',field_parameters(loop)*k_B/bohr_magn,'|'
+                                      ,vec_tmp1(:),'|',field_vectors_frac(:,loop),'|',field_parameters(loop)*k_B/bohr_magn,'|'
+!                                      ,vec_tmp1(:),'|',field_axes_cart(:,loop),'|',field_parameters(loop)*k_B/bohr_magn,'|'
         end do
+      end if
         write(stdout,'(1x,a)') '*-----------------------------------------------------------------------------------*'
         write(stdout,*) ' '
      endif
@@ -1726,6 +1753,11 @@ contains
     if ( allocated(field_axes_cart) ) then
        deallocate( field_axes_cart, stat=ierr  )
        if (ierr/=0) call io_error('Error in deallocating field_axes_cart in param_second_dealloc')
+    end if
+
+    if ( allocated(field_vector) ) then
+      deallocate( field_vector, stat=ierr  )
+      if (ierr/=0) call io_error('Error in deallocating field_vector in param_second_dealloc')
     end if
 
     if (allocated(seeds)) then
@@ -3300,6 +3332,398 @@ contains
 240 call io_error('Error: Problem reading block keyword '//trim(keyword))
 
   end subroutine param_get_axes
+
+
+  !===============================================================!
+  subroutine param_get_field_axes(keyword,found,rows,c_value,r_value,param_value,lsort,lnorm)
+   !================================================================!
+   !                                                                !
+   !   Return the axes in cartesian cordinate (Ang) and             !
+   !   relative parameter without any converting the parameters     !
+   !   in the case of lnorm=.true. norm of vector will be return    !
+   !   if lsort = .true. change the ordeing according to the atoms  !
+   !                                                                !
+   !================================================================!
+
+   use mc_constants, only : bohr,hart,eps4
+   use mc_utility,   only : utility_frac_to_cart,utility_strip
+   use mc_io,        only : io_error
+   implicit none
+
+   character(*),              intent(in) :: keyword
+   logical,                  intent(out) :: found
+   integer,                   intent(in) :: rows   
+   logical,                   intent(in) :: lsort  
+   logical,                   intent(in) :: lnorm  
+   character(*) ,          intent(inout) :: c_value(rows)
+   real(kind=dp),          intent(inout) :: r_value(3,rows)
+   real(kind=dp),optional, intent(inout) :: param_value(rows)
+   !
+   real(kind=dp)          :: axes_frac_tmp(3,rows)
+   real(kind=dp)          :: axes_cart_tmp(3,rows)
+   real(kind=dp)          :: param_tmp(rows)
+   character(len=maxlen)  :: atoms_label_tmp(rows)
+   integer                :: in,ins,ine,loop,i,line_e,line_s,counter
+   integer                :: loop2,ic,pos,blen
+   character(len=maxlen)  :: dummy,end_st,start_st,ctemp
+   logical                :: found_e,found_s,frac,found_length,found_energy
+   logical                :: lconvert_length,lconvert_energy
+   character(len=5) , parameter     :: c_punc=" ,;-:"
+
+
+   frac = .false.
+   dummy = trim(adjustl(keyword))
+   pos = index(dummy,'frac')
+   if(pos .ne. 0 ) frac = .true.
+
+   found_s = .false.
+   found_e = .false.
+
+   start_st = 'begin '//trim(keyword)
+   end_st = 'end '//trim(keyword)
+
+   do loop=1,num_lines
+      ins = index(in_data(loop),trim(keyword))
+      if (ins==0) cycle
+      in = index(in_data(loop),'begin')
+      if (in==0 .or. in>1) cycle
+      line_s = loop
+      if (found_s) then
+         call io_error('Error: Found '//trim(start_st)//' more than once in input file')
+      endif
+      found_s = .true.
+   end do
+
+   if(.not. found_s) then
+      found = .false.
+      return
+   end if
+
+   do loop=1,num_lines
+      ine = index(in_data(loop),trim(keyword))
+      if (ine==0) cycle
+      in = index(in_data(loop),'end')
+      if (in==0 .or. in>1) cycle
+      line_e = loop
+      if (found_e) then
+         call io_error('Error: Found '//trim(end_st)//' more than once in input file')
+      endif
+      found_e = .true.
+   end do
+
+   if (.not.found_e) then
+      call io_error('Error: Found '//trim(start_st)//' but no '//trim(end_st)//' in input file')
+   end if
+
+   if (line_e<=line_s) then
+      call io_error('Param_get_axes: '//trim(end_st)//' comes before '//trim(start_st)//' in input file')
+   end if
+
+   dummy = adjustl(in_data(line_s))
+   ctemp = utility_strip(dummy)
+   if (len(trim(ctemp)) .ne. (len(trim(keyword))+5)) &
+      call io_error('Error: Unrecognised Begin block in '//trim(dummy)//' line')
+   dummy = adjustl(in_data(line_e))
+   ctemp = utility_strip(dummy)
+   if (len(trim(ctemp)) .ne. (len(trim(keyword))+3)) & 
+      call io_error('Error: Unrecognised End block in '//trim(dummy)//' line')
+   
+   blen = line_e-line_s-1
+   found = .true.
+
+   lconvert_length = .false.
+   lconvert_energy = .false.
+   if (blen == rows+1) then
+     dummy = adjustl(in_data(line_s+1))
+     if (len_trim(dummy)==0) call io_error('Error: keyword '//trim(keyword)//' is blank')
+     found_length = .false.
+     found_energy = .false.
+     do i=1,2
+        pos = scan(dummy,c_punc)
+        if(pos==0 .or. pos==1) call io_error('Error parsing keyword '//trim(keyword)) 
+        ctemp = dummy(1:pos-1)
+        select case(ctemp)
+        case ('ang')
+             lconvert_length = .false.
+             if (found_length) &
+                call io_error('Error: Found the length unit in block '//trim(keyword)//' more than once')
+             found_length = .true.
+        case ('bohr')
+             lconvert_length = .true.
+             if (found_length)  &
+                call io_error('Error: Found the length unit in block '//trim(keyword)//' more than once')
+             found_length = .true.
+        case ('ev')
+             if (.not. present(param_value)) &
+                  call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+             lconvert_energy = .false.
+             if (found_energy) &
+                call io_error('Error: Found the energy unit in block '//trim(keyword)//' more than once')
+             found_energy = .true.
+        case ('ryd')
+             if (.not. present(param_value)) &
+                  call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+             lconvert_energy = .true.
+             if (found_energy) &
+                call io_error('Error: Found the energy unit in block '//trim(keyword)//' more than once')
+             found_energy = .true.
+        case default
+             call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+        end select
+        dummy = adjustl(dummy(pos:))
+        if(scan(dummy,c_punc) == 1) dummy = adjustl(dummy(2:))
+        if(index(dummy,' ')==1) exit
+     enddo
+      in_data(line_s)(1:maxlen) = ' '
+      line_s = line_s + 1
+   endif
+
+   axes_cart_tmp = 0
+   counter = 0
+   do loop=line_s+1,line_e-1
+      dummy = in_data(loop)
+      counter = counter+1
+      if (present(param_value))then
+        if (frac) then
+           read(dummy,*,err=240,end=240) atoms_label_tmp(counter),&
+               (axes_frac_tmp(i,counter),i=1,3),param_tmp(counter)
+        else
+           read(dummy,*,err=240,end=240) atoms_label_tmp(counter),&
+               (axes_cart_tmp(i,counter),i=1,3),param_tmp(counter)
+        end if
+      else
+        if (frac) then
+           read(dummy,*,err=240,end=240) atoms_label_tmp(counter),(axes_frac_tmp(i,counter),i=1,3)
+        else
+           read(dummy,*,err=240,end=240) atoms_label_tmp(counter),(axes_cart_tmp(i,counter),i=1,3)
+        end if
+      endif
+   end do
+
+   if (lconvert_length)     axes_cart_tmp  = axes_cart_tmp*bohr
+   if (lconvert_energy)     param_tmp      = param_tmp*hart*0.5_dp
+
+   in_data(line_s:line_e)(1:maxlen) = ' '
+
+   if (frac) then
+     do loop=1,rows
+         call utility_frac_to_cart (axes_frac_tmp(:,loop),axes_cart_tmp(:,loop),real_lattice)
+     end do
+   end if
+
+   ! Now we sort the data according to the atoms 
+   if (lsort) then
+     counter=0
+     do loop=1,num_species
+        do loop2=1,num_atoms
+           if( trim(atoms_symbol(loop))==trim(atoms_label_tmp(loop2) )) then
+              counter = counter+1
+              c_value(counter) = atoms_symbol(loop)
+              r_value(:,counter) = axes_frac_tmp(:,loop2)
+              if(present(param_value)) param_value(counter) = param_tmp(loop2)
+           end if
+        end do
+     end do
+     if (counter .ne. num_atoms) &
+        call io_error('Error: Wrong atoms symbol at the block keyword '//trim(keyword))
+     ! Atom labels (eg, si --> Si)
+     do loop=1,num_atoms
+        ic = ichar(c_value(loop)(1:1))
+        if ((ic.ge.ichar('a')).and.(ic.le.ichar('z'))) &
+             c_value(loop)(1:1) = char(ic+ichar('Z')-ichar('z'))
+     enddo
+   else
+     c_value = atoms_label_tmp
+     if(present(param_value)) param_value = param_tmp
+     do loop=1,rows
+        r_value(:,loop) = axes_frac_tmp(:,loop)
+     enddo
+   endif
+
+   ! Normalize Vectors
+   if (lnorm) then
+     do loop=1,rows
+        if(all(abs(r_value(:,loop)).lt. eps4 )) &
+           call io_error('Error: All component of an axe in block '//trim(keyword)//' are zero')
+        r_value(:,loop) = r_value(:,loop)&
+                           /sqrt(dot_product(r_value(:,loop),r_value(:,loop)))
+     enddo
+   endif
+
+   return
+
+240 call io_error('Error: Problem reading block keyword '//trim(keyword))
+
+ end subroutine param_get_field_axes
+
+  !===============================================================!
+ subroutine param_get_field_vector(keyword,found,r_value,param_value,lnorm)
+   !================================================================!
+   !                                                                !
+   !   Return the axes in cartesian cordinate (Ang) and             !
+   !   relative parameter without any converting the parameters     !
+   !   in the case of lnorm=.true. norm of vector will be return    !
+   !   if lsort = .true. change the ordeing according to the atoms  !
+   !                                                                !
+   !================================================================!
+
+   use mc_constants, only : bohr,hart,eps4
+   use mc_utility,   only : utility_frac_to_cart,utility_strip
+   use mc_io,        only : io_error
+   implicit none
+
+   character(*),              intent(in) :: keyword
+   logical,                  intent(out) :: found
+   logical,                   intent(in) :: lnorm  
+   real(kind=dp),          intent(inout) :: r_value(:)
+   real(kind=dp),optional, intent(inout) :: param_value(:)
+   !
+   real(kind=dp)          :: axes_frac_tmp(3)
+   real(kind=dp)          :: axes_cart_tmp(3)
+   real(kind=dp)          :: param_tmp(1)
+   integer                :: in,ins,ine,loop,i,line_e,line_s,counter
+   integer                :: loop2,ic,pos,blen
+   character(len=maxlen)  :: dummy,end_st,start_st,ctemp
+   logical                :: found_e,found_s,frac,found_length,found_energy
+   logical                :: lconvert_length,lconvert_energy
+   character(len=5) , parameter     :: c_punc=" ,;-:"
+   integer :: rows=1
+
+   frac = .false.
+   dummy = trim(adjustl(keyword))
+   pos = index(dummy,'frac')
+   if(pos .ne. 0 ) frac = .true.
+
+   found_s = .false.
+   found_e = .false.
+
+   start_st = 'begin '//trim(keyword)
+   end_st = 'end '//trim(keyword)
+
+   do loop=1,num_lines
+      ins = index(in_data(loop),trim(keyword))
+      if (ins==0) cycle
+      in = index(in_data(loop),'begin')
+      if (in==0 .or. in>1) cycle
+      line_s = loop
+      if (found_s) then
+         call io_error('Error: Found '//trim(start_st)//' more than once in input file')
+      endif
+      found_s = .true.
+   end do
+
+   if(.not. found_s) then
+      found = .false.
+      return
+   end if
+
+   do loop=1,num_lines
+      ine = index(in_data(loop),trim(keyword))
+      if (ine==0) cycle
+      in = index(in_data(loop),'end')
+      if (in==0 .or. in>1) cycle
+      line_e = loop
+      if (found_e) then
+         call io_error('Error: Found '//trim(end_st)//' more than once in input file')
+      endif
+      found_e = .true.
+   end do
+
+   if (.not.found_e) then
+      call io_error('Error: Found '//trim(start_st)//' but no '//trim(end_st)//' in input file')
+   end if
+
+   if (line_e<=line_s) then
+      call io_error('Param_get_axes: '//trim(end_st)//' comes before '//trim(start_st)//' in input file')
+   end if
+
+   dummy = adjustl(in_data(line_s))
+   ctemp = utility_strip(dummy)
+   if (len(trim(ctemp)) .ne. (len(trim(keyword))+5)) &
+      call io_error('Error: Unrecognised Begin block in '//trim(dummy)//' line')
+   dummy = adjustl(in_data(line_e))
+   ctemp = utility_strip(dummy)
+   if (len(trim(ctemp)) .ne. (len(trim(keyword))+3)) & 
+      call io_error('Error: Unrecognised End block in '//trim(dummy)//' line')
+   
+   blen = line_e-line_s-1
+   found = .true.
+
+   lconvert_length = .false.
+   lconvert_energy = .false.
+   if (blen == rows+1) then
+     dummy = adjustl(in_data(line_s+1))
+     if (len_trim(dummy)==0) call io_error('Error: keyword '//trim(keyword)//' is blank')
+     found_length = .false.
+     found_energy = .false.
+     do i=1,2
+        pos = scan(dummy,c_punc)
+        if(pos==0 .or. pos==1) call io_error('Error parsing keyword '//trim(keyword)) 
+        ctemp = dummy(1:pos-1)
+        select case(ctemp)
+        case ('ang')
+             lconvert_length = .false.
+             if (found_length) &
+                call io_error('Error: Found the length unit in block '//trim(keyword)//' more than once')
+             found_length = .true.
+        case ('bohr')
+             lconvert_length = .true.
+             if (found_length)  &
+                call io_error('Error: Found the length unit in block '//trim(keyword)//' more than once')
+             found_length = .true.
+        case ('ev')
+             if (.not. present(param_value)) &
+                  call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+             lconvert_energy = .false.
+             if (found_energy) &
+                call io_error('Error: Found the energy unit in block '//trim(keyword)//' more than once')
+             found_energy = .true.
+        case ('ryd')
+             if (.not. present(param_value)) &
+                  call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+             lconvert_energy = .true.
+             if (found_energy) &
+                call io_error('Error: Found the energy unit in block '//trim(keyword)//' more than once')
+             found_energy = .true.
+        case default
+             call io_error('Error: Units in block '//trim(keyword)//' not recognised')
+        end select
+        dummy = adjustl(dummy(pos:))
+        if(scan(dummy,c_punc) == 1) dummy = adjustl(dummy(2:))
+        if(index(dummy,' ')==1) exit
+     enddo
+      in_data(line_s)(1:maxlen) = ' '
+      line_s = line_s + 1
+   endif
+
+   axes_cart_tmp = 0
+   counter = 0
+   do loop=line_s+1,line_e-1
+      dummy = in_data(loop)
+      counter = counter+1
+      if (present(param_value))then
+        read(dummy,*,err=240,end=240) (axes_cart_tmp(i),i=1,3),param_tmp(counter)
+      else
+         call io_error('Error: Magnetic field strenght in block '//trim(keyword)//' not given')
+      endif
+   end do
+
+   in_data(line_s:line_e)(1:maxlen) = ' '
+
+   param_value = param_tmp
+   r_value(:) = axes_cart_tmp(:)
+   ! Normalize Vectors
+   if (lnorm) then
+     if(all(abs(r_value).lt. eps4 )) &
+      call io_error('Error: All axis components of the magnetic field in block '//trim(keyword)//' are zero')
+     r_value = r_value/sqrt(dot_product(r_value,r_value))
+   endif
+
+   return
+
+240 call io_error('Error: Problem reading block keyword '//trim(keyword))
+
+ end subroutine param_get_field_vector
 
   !===========================================!
   subroutine param_memory_estimate

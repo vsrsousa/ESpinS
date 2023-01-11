@@ -232,7 +232,8 @@ contains
       use mc_utility,    only : utility_cross
       use mc_parameters, only : singleion_parameters,singleion_axes_cart,&
                                 field_parameters,field_axes_cart,&
-                                have_dm,have_biquad,have_singleion,have_field
+                                have_dm,have_biquad,have_singleion,have_field, &
+                                field_vector,found3
 
       implicit none
 
@@ -251,12 +252,19 @@ contains
       enddo
 
       if (have_field) then
+       if (found3)then
+         do i=1,num_total_atoms
+           sidotfield = dot_product(spin_matrix(:,i),field_vector(:))
+           energy_tot = energy_tot+2.0_dp*field_parameters(1)*sidotfield
+         enddo
+       else 
         do i=1,num_total_atoms
            axis = mod(i,num_atoms)
            if (axis .eq. 0) axis=num_atoms
            sidotfield = dot_product(spin_matrix(:,i),field_axes_cart(:,axis))
            energy_tot = energy_tot+2.0_dp*field_parameters(axis)*sidotfield
         enddo
+       endif
       endif
 
       if (have_singleion) then
@@ -310,7 +318,8 @@ contains
       use mc_utility,    only : utility_cross
       use mc_parameters, only : singleion_parameters,singleion_axes_cart,&
                                 field_parameters,field_axes_cart,&
-                                have_dm,have_biquad,have_singleion,have_field
+                                have_dm,have_biquad,have_singleion,have_field,&
+                                field_vector,found3
 
 
       implicit none
@@ -332,10 +341,14 @@ contains
       enddo
 
       if (have_field)then
-        axis = mod(loop_at,num_atoms)
+       if(found3)then
+         delta_energy = delta_energy+field_parameters(1)*dot_product(delta_spin_matrix(:),field_vector(:))
+       else
+         axis = mod(loop_at,num_atoms)
         if (axis.eq.0) axis = num_atoms
         delta_energy = delta_energy+field_parameters(axis)*&
                                   dot_product(delta_spin_matrix(:),field_axes_cart(:,axis))
+       endif
       endif
 
       if (have_singleion) then
